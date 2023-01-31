@@ -55,7 +55,7 @@ func main() {
 	})
 
 	fmt.Println("Starting server on port 5000")
-	r.Run("localhost:5000") // listen and serve on
+	r.Run("0.0.0.0:5000") // listen and serve on
 }
 
 type sendRequest struct {
