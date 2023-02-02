@@ -95,6 +95,7 @@ type BuildRequest struct {
 	BuildDate     string `json:"build_date" binding:"required"`
 	CommitAuthor  string `json:"commit_author" binding:"required"`
 	CommitURL     string `json:"commit_url" binding:"required"`
+	CommitTitle   string `json:"commit_title" binding:"required"`
 	BuildResult   string `json:"build_result" binding:"required"`
 	BuildDuration string `json:"build_duration" binding:"required"`
 }

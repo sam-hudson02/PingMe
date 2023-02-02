@@ -79,7 +79,7 @@ func (b *Bot) BuildPipelineNotify(channel_id string, buildRequest BuildRequest) 
 			},
 			{
 				Name:   "Commit URL",
-				Value:  buildRequest.CommitURL,
+				Value:  "[" + buildRequest.CommitTitle + "](" + buildRequest.CommitURL + ")",
 				Inline: false,
 			},
 			{
