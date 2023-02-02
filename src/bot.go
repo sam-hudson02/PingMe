@@ -52,19 +52,23 @@ func (b *Bot) BuildPipelineNotify(channel_id string, buildRequest BuildRequest) 
 	color := 2031360
 	Title := ""
 	fmt.Printf("Build Result: %s", buildRequest.BuildResult)
+	description := ""
+
 	if buildRequest.BuildResult == "SUCCESS" {
 		Title = "✅ " + buildRequest.BuildName + " Build Success! ✅"
+		description = "[Successfully built" + buildRequest.BuildName + " with Jenkins!](" + buildRequest.BuildURL + ")"
 		// green
 		color = 2031360
 	} else {
 		Title = "❌ " + buildRequest.BuildName + " Build Failure! ❌"
+		description = "[Failed to build " + buildRequest.BuildName + " with Jenkins!](" + buildRequest.BuildURL + ")"
 		// red
 		color = 16711680
 	}
 
 	msgEmbed := &discordgo.MessageEmbed{
 		Title:       Title,
-		Description: buildRequest.BuildURL,
+		Description: description,
 		Color:       color,
 		Fields: []*discordgo.MessageEmbedField{
 			{
@@ -78,7 +82,7 @@ func (b *Bot) BuildPipelineNotify(channel_id string, buildRequest BuildRequest) 
 				Inline: false,
 			},
 			{
-				Name:   "Commit URL",
+				Name:   "Commit",
 				Value:  "[" + buildRequest.CommitTitle + "](" + buildRequest.CommitURL + ")",
 				Inline: false,
 			},
