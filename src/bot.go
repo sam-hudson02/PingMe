@@ -51,7 +51,7 @@ func (b *Bot) BuildPipelineNotify(channel_id string, buildRequest BuildRequest) 
 	// set discord embed color
 	color := 2031360
 	Title := ""
-	if buildRequest.BuildResult == "succeeded" {
+	if buildRequest.BuildResult == "SUCCESS" {
 		Title = "✅ " + Title + " Build Success! ✅"
 		// green
 		color = 2031360
