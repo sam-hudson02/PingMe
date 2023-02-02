@@ -44,3 +44,55 @@ func (b *Bot) Send(userID, message string) error {
 
 	return nil
 }
+
+func (b *Bot) BuildPipelineNotify(channel_id string, buildRequest BuildRequest) error {
+	fmt.Printf("Sending build notification to %s: %s", channel_id, buildRequest.BuildID)
+	// build rich embed
+	// set discord embed color
+	color := 2031360
+	Title := ""
+	if buildRequest.BuildResult == "succeeded" {
+		Title = "✅ " + Title + " Build Success! ✅"
+		// green
+		color = 2031360
+	} else {
+		Title = "❌ " + Title + " Build Failure! ❌"
+		// red
+		color = 16711680
+	}
+
+	msgEmbed := &discordgo.MessageEmbed{
+		Title:       Title,
+		Description: buildRequest.BuildURL,
+		Color:       color,
+		Fields: []*discordgo.MessageEmbedField{
+			{
+				Name:   "Build Number",
+				Value:  buildRequest.BuildID,
+				Inline: false,
+			},
+			{
+				Name:   "Commit Author",
+				Value:  buildRequest.CommitAuthor,
+				Inline: false,
+			},
+			{
+				Name:   "Commit URL",
+				Value:  buildRequest.CommitURL,
+				Inline: false,
+			},
+			{
+				Name:   "Build Duration",
+				Value:  buildRequest.BuildDuration,
+				Inline: false,
+			},
+		},
+		Footer: &discordgo.MessageEmbedFooter{
+			Text: buildRequest.BuildDate,
+		},
+	}
+
+	// get user channel
+	b.Session.ChannelMessageSendEmbed(channel_id, msgEmbed)
+	return nil
+}
