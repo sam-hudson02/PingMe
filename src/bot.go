@@ -56,7 +56,7 @@ func (b *Bot) BuildPipelineNotify(channel_id string, buildRequest BuildRequest) 
 
 	if buildRequest.BuildResult == "SUCCESS" {
 		Title = "✅ " + buildRequest.BuildName + " Build Success! ✅"
-		description = "[Successfully built" + buildRequest.BuildName + " with Jenkins!](" + buildRequest.BuildURL + ")"
+		description = "[Successfully built " + buildRequest.BuildName + " with Jenkins!](" + buildRequest.BuildURL + ")"
 		// green
 		color = 2031360
 	} else {
